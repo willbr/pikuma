@@ -26,6 +26,15 @@ add_executable(PongClone src/main.c)
 # Include SDL2 headers and link SDL2 library
 target_link_libraries(PongClone PRIVATE SDL2::SDL2 SDL2::SDL2main)
 
+# Enable all compiler warnings based on the compiler
+if (CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
+    # For GCC and Clang
+    target_compile_options(PongClone PRIVATE -Wall -Wextra -pedantic)
+elseif (CMAKE_C_COMPILER_ID STREQUAL "MSVC")
+    # For MSVC
+    target_compile_options(PongClone PRIVATE /W4)
+endif()
+
 # Set output directories (optional)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 

@@ -247,6 +247,9 @@ render(void) {
 
 int
 main(int argc, char **argv) {
+    (void)argc;
+    (void)argv;
+
     puts("Built: " __DATE__ ", " __TIME__);
 
     game_is_running = init_window();
