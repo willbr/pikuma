@@ -1,8 +1,12 @@
 #include stdlib("stdio.h")
+; #define SDL_DISABLE_IMMINTRIN_H
 #include stdlib("SDL2/SDL.h")
 
 #define WINDOW-WIDTH 800
 #define WINDOW-HEIGHT 600
+
+#define false 0
+#define true !0
 
 vars
     window          *SDL_Window   null
@@ -16,7 +20,7 @@ fn main
         argv **char
     returns int
 
-    game-is-running = initialise-window
+    game-is-running = initialise-window()
 
     setup
 

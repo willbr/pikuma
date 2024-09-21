@@ -1,0 +1,102 @@
+#include stdlib("stdio.h")
+#include stdlib("SDL2/SDL.h")
+
+#define WINDOW-WIDTH 800
+#define WINDOW-HEIGHT 600
+
+vars
+    window          *SDL_Window   null
+    renderer        *SDL_Renderer null
+    game-is-running int           false
+
+
+fn main
+    args
+        argc int
+        argv **char
+    returns int
+
+    game-is-running = initialise-window
+
+    setup
+
+    while game-is-running
+        process-input
+        update
+        render
+    
+    destroy-window
+
+    return 0
+
+
+fn initialise-window
+    returns int
+
+    if SDL-Init(SDL-INIT-EVERYTHING) isnt 0
+        fprintf stderr "Error: initialising SDL.\n"
+        return false
+    
+    window =
+        SDL-CreateWindow
+            \ null
+            \ SDL-WINDOWPOS-CENTERED
+            \ SDL-WINDOWPOS-CENTERED
+            \ WINDOW-WIDTH
+            \ WINDOW-HEIGHT
+            \ SDL-WINDOW-BORDERLESS
+
+    if !window
+        fprintf stderr "Error creating SDL Window.\n"
+        return false
+
+    renderer =
+        SDL-CreateRenderer
+            \ window -1 0
+
+    if !renderer
+        fprintf stderr "Error creating SDL Renderer.\n"
+        return false
+
+    return true
+
+
+fn destroy-window
+    SDL-DestroyRenderer renderer
+    SDL-DestroyWindow   window
+    SDL-Quit
+
+
+fn setup
+    null-statement
+    return
+
+
+fn process-input
+    var event SDL-Event
+
+    SDL-PollEvent &event
+
+    case event.type
+        SDL-QUIT
+            game-is-running = false
+            break
+
+        SDL-KEYDOWN
+            if event.key.keysym.sym is SDLK-ESCAPE
+                game-is-running = false
+            break
+
+    return
+
+
+fn update
+    null-statement
+    return
+
+
+fn render
+    null-statement
+    return
+
+
